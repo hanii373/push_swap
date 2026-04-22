@@ -44,9 +44,14 @@ void	complex_sort(t_stack_node **a, t_stack_node **b, t_count_opers *op)
 	int	bit;
 	int	j;
 
-	size = stack_size(*a);
-	if (size == 0)
+	if (!a || !*a)
 		return ;
+	size = stack_size(*a);
+	if (size <= 5)
+	{
+		medium_sort(a, b, op);
+		return ;
+	}
 	max_bits = get_max_bits(size - 1);
 	bit = 0;
 	while (bit < max_bits)

@@ -6,7 +6,7 @@
 /*   By: gogalsty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:29:12 by gogalsty          #+#    #+#             */
-/*   Updated: 2026/04/21 16:09:31 by gogalsty         ###   ########.fr       */
+/*   Updated: 2026/04/21 00:00:00 by gogalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,7 @@
 void	adaptive_sort(t_stack_node **a, t_stack_node **b,
 			float disorder, t_count_opers *op)
 {
-	int	size;
-
-	size = stack_size(*a);
-	if (size <= 10)
-		simple_sort(a, b, op);
-	else if (disorder < 0.2f)
+	if (disorder < 0.2f)
 		simple_sort(a, b, op);
 	else if (disorder < 0.5f)
 		medium_sort(a, b, op);
