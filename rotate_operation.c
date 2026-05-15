@@ -31,7 +31,8 @@ static void	rotate(t_stack_node **stack)
 void	ra(t_stack_node **a, t_count_opers *op)
 {
 	rotate(a);
-	write(1, "ra\n", 3);
+	if (!op->silent)
+		write(1, "ra\n", 3);
 	op->ra++;
 	op->all_op++;
 }
@@ -39,7 +40,8 @@ void	ra(t_stack_node **a, t_count_opers *op)
 void	rb(t_stack_node **b, t_count_opers *op)
 {
 	rotate(b);
-	write(1, "rb\n", 3);
+	if (!op->silent)
+		write(1, "rb\n", 3);
 	op->rb++;
 	op->all_op++;
 }
@@ -48,7 +50,8 @@ void	rr(t_stack_node **a, t_stack_node **b, t_count_opers *op)
 {
 	rotate(a);
 	rotate(b);
-	write(1, "rr\n", 3);
+	if (!op->silent)
+		write(1, "rr\n", 3);
 	op->rr++;
 	op->all_op++;
 }

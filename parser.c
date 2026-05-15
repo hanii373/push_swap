@@ -6,66 +6,12 @@
 /*   By: gogalsty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:28:08 by gogalsty          #+#    #+#             */
-/*   Updated: 2026/04/21 00:00:00 by gogalsty         ###   ########.fr       */
+/*   Updated: 2026/04/27 00:00:00 by gogalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/* Validates all argv tokens (after the optional flag) are integers. */
-int	preparser_check(char **argv, int start_arg, int argc)
-{
-	int	i;
-	int	numbers_count;
-
-	numbers_count = 0;
-	i = start_arg + 1;
-	while (i < argc)
-	{
-		if (!num_check(argv[i], &numbers_count))
-		{
-			write(2, "Error\n", 6);
-			exit(1);
-		}
-		i++;
-	}
-	return (numbers_count);
-}
-
-/* Expands a single argv[i] token (may contain spaces) into arr[]. */
-int	numbers_separator(char **argv, int *arr, int i, int *j)
-{
-	char	**buff;
-	int		k;
-
-	if (!ft_strchr(argv[i], ' '))
-	{
-		if (!isinteger(argv[i]) || !repeating_num_check(arr, *j, argv[i]))
-			return (0);
-		arr[(*j)++] = ft_atoi(argv[i]);
-	}
-	else
-	{
-		buff = ft_split(argv[i], ' ');
-		if (!buff)
-			return (0);
-		k = 0;
-		while (buff[k])
-		{
-			if (!isinteger(buff[k]) || !repeating_num_check(arr, *j, buff[k]))
-			{
-				ft_free(buff);
-				return (0);
-			}
-			arr[(*j)++] = ft_atoi(buff[k]);
-			k++;
-		}
-		ft_free(buff);
-	}
-	return (1);
-}
-
-/* Fills arr[] with all integer arguments, returns arr or NULL on error. */
 int	*parser(char **argv, int start_arg, int argc, int arr_len)
 {
 	int	*arr;
@@ -90,11 +36,6 @@ int	*parser(char **argv, int start_arg, int argc, int arr_len)
 	return (arr);
 }
 
-/*
-** Computes 0-based ranks for each element of arr[].
-** rank[i] = number of elements in arr strictly less than arr[i].
-** This turns arbitrary integers into 0..n-1 for radix/chunk sort.
-*/
 static int	*compute_ranks(int *arr, int len)
 {
 	int	*ranks;
@@ -122,7 +63,6 @@ static int	*compute_ranks(int *arr, int len)
 	return (ranks);
 }
 
-/* Parses all strategy flags from argv. Returns index of first number arg. */
 int	comp_flag_check(int argc, char **argv, t_strat *yyy)
 {
 	int	i;
@@ -140,6 +80,8 @@ int	comp_flag_check(int argc, char **argv, t_strat *yyy)
 			yyy->adaptive = true;
 		else if (ft_strncmp(argv[i], "--bench", 20) == 0)
 			yyy->bench = true;
+		else if (ft_strncmp(argv[i], "--count-only", 20) == 0)
+			yyy->count_only = true;
 		else
 			return (i - 1);
 		i++;
@@ -147,7 +89,6 @@ int	comp_flag_check(int argc, char **argv, t_strat *yyy)
 	return (i - 1);
 }
 
-/* Initialises all flags to false. */
 void	inicial_tflag(t_strat *yyy)
 {
 	yyy->simple = false;
@@ -155,13 +96,9 @@ void	inicial_tflag(t_strat *yyy)
 	yyy->complex = false;
 	yyy->adaptive = false;
 	yyy->bench = false;
+	yyy->count_only = false;
 }
 
-/*
-** Full argument parsing entry point.
-** Returns the built stack a, or NULL if no numbers were given.
-** Sets *dis to the disorder value before any moves.
-*/
 t_stack_node	*args_pars(int argc, char **argv, t_strat *flags, float *dis)
 {
 	int				start_arg;
@@ -181,10 +118,7 @@ t_stack_node	*args_pars(int argc, char **argv, t_strat *flags, float *dis)
 		return (NULL);
 	ranks = compute_ranks(arr, arr_len);
 	if (!ranks)
-	{
-		free(arr);
-		return (NULL);
-	}
+		return (free(arr), NULL);
 	*dis = calculate_disorder(arr, arr_len);
 	stack_a = get_stack_a(arr, ranks, arr_len);
 	free(arr);

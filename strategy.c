@@ -6,16 +6,12 @@
 /*   By: gogalsty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:27:22 by gogalsty          #+#    #+#             */
-/*   Updated: 2026/04/21 00:00:00 by gogalsty         ###   ########.fr       */
+/*   Updated: 2026/04/23 18:26:04 by gogalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/*
-** Returns the name string of the active strategy for --bench output.
-** Used only by bench.c.
-*/
 const char	*strategy_name(t_strat flags, float disorder)
 {
 	if (flags.simple)

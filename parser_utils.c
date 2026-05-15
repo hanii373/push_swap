@@ -6,22 +6,17 @@
 /*   By: gogalsty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:28:14 by gogalsty          #+#    #+#             */
-/*   Updated: 2026/04/21 00:00:00 by gogalsty         ###   ########.fr       */
+/*   Updated: 2026/04/23 18:37:32 by gogalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/* Returns 1 if str represents a valid int within INT range, else 0. */
-int	isinteger(char *nptr)
+int	isinteger(char *nptr, int i, unsigned long number)
 {
-	int				i;
 	long			sign;
-	unsigned long	number;
 
-	i = 0;
 	sign = 1;
-	number = 0;
 	while (nptr[i] == ' ')
 		i++;
 	if (nptr[i] == '+' || nptr[i] == '-')
@@ -45,10 +40,6 @@ int	isinteger(char *nptr)
 	return (1);
 }
 
-/*
-** Scans a whitespace-separated token string and counts valid numbers.
-** Returns 1 if all tokens are numeric, 0 on any non-numeric character.
-*/
 int	num_check(char *str, int *numbers_count)
 {
 	int	i;
@@ -78,7 +69,6 @@ int	num_check(char *str, int *numbers_count)
 	return (0);
 }
 
-/* Returns 0 if the value represented by str already exists in arr[0..j-1]. */
 int	repeating_num_check(int *arr, int j, char *str)
 {
 	int	i;
@@ -95,7 +85,6 @@ int	repeating_num_check(int *arr, int j, char *str)
 	return (1);
 }
 
-/* Frees a NULL-terminated array of strings (shallow free of pointers). */
 void	ft_free(char **arr)
 {
 	int	i;
@@ -108,4 +97,23 @@ void	ft_free(char **arr)
 		i++;
 	}
 	free(arr);
+}
+
+int	preparser_check(char **argv, int start_arg, int argc)
+{
+	int	i;
+	int	numbers_count;
+
+	numbers_count = 0;
+	i = start_arg + 1;
+	while (i < argc)
+	{
+		if (!num_check(argv[i], &numbers_count))
+		{
+			write(2, "Error\n", 6);
+			exit(1);
+		}
+		i++;
+	}
+	return (numbers_count);
 }

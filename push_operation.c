@@ -32,7 +32,8 @@ static void	push(t_stack_node **from, t_stack_node **to)
 void	pa(t_stack_node **a, t_stack_node **b, t_count_opers *op)
 {
 	push(b, a);
-	write(1, "pa\n", 3);
+	if (!op->silent)
+		write(1, "pa\n", 3);
 	op->pa++;
 	op->all_op++;
 }
@@ -40,7 +41,8 @@ void	pa(t_stack_node **a, t_stack_node **b, t_count_opers *op)
 void	pb(t_stack_node **a, t_stack_node **b, t_count_opers *op)
 {
 	push(a, b);
-	write(1, "pb\n", 3);
+	if (!op->silent)
+		write(1, "pb\n", 3);
 	op->pb++;
 	op->all_op++;
 }

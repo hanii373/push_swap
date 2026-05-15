@@ -17,8 +17,10 @@ LIBS	:= -L$(LIB_DIR) -lft -L$(PF_DIR) -lftprintf -lm
 SRC		:=	main.c \
 			parser.c \
 			parser_utils.c \
+			parser_utils2.c \
 			bench.c \
 			steck_imp.c \
+			steck_imp2.c \
 			rotate_operation.c \
 			revers_operation.c \
 			swap_operation.c \
@@ -27,6 +29,7 @@ SRC		:=	main.c \
 			strategy.c \
 			adaptive.c \
 			simple_sort.c \
+			sort_three.c \
 			medium_sort.c \
 			complex_sort.c
 

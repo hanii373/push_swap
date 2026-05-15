@@ -6,17 +6,12 @@
 /*   By: gogalsty <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/21 14:28:55 by gogalsty          #+#    #+#             */
-/*   Updated: 2026/04/21 00:00:00 by gogalsty         ###   ########.fr       */
+/*   Updated: 2026/04/23 18:17:18 by gogalsty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/*
-** Computes the disorder of stack a using the inversion-pair formula.
-** disorder = mistakes / total_pairs, result in [0.0 .. 1.0].
-** Works on the linked list directly.
-*/
 double	compute_disorder(t_stack_node *a)
 {
 	t_stack_node	*outer;
@@ -44,9 +39,6 @@ double	compute_disorder(t_stack_node *a)
 	return ((double)mistakes / total);
 }
 
-/*
-** Same calculation on a plain int array (used before the stack is built).
-*/
 float	calculate_disorder(int arr[], int size)
 {
 	int	mistakes;
